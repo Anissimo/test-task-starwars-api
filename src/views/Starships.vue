@@ -1,4 +1,9 @@
-<template>Starships.vue</template>
+<template>
+  Starships.vue
+  <router-link to="/">
+    <a-button>Назад</a-button>
+  </router-link>
+</template>
 
 <script lang="ts" setup></script>
 

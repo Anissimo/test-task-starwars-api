@@ -1,4 +1,9 @@
-<template>People.vue</template>
+<template>
+  People.vue
+  <router-link to="/">
+    <a-button>Назад</a-button>
+  </router-link>
+</template>
 
 <script lang="ts" setup></script>
 

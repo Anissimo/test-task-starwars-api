@@ -1,4 +1,9 @@
-<template>Species.vue</template>
+<template>
+  Species.vue
+  <router-link to="/">
+    <a-button>Назад</a-button>
+  </router-link>
+</template>
 
 <script lang="ts" setup></script>
 
