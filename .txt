@@ -1,0 +1,31 @@
+<template>
+  <div class="container">
+    <router-link to="/">
+      <a-button>Назад</a-button>
+    </router-link>
+    <h2>Films.vue</h2>
+    <div v-if="loading">Загрузка...</div>
+    <div v-else>{{ films }}</div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+const films = ref<Object | null>(null);
+const loading = ref(true);
+
+onMounted(async () => {
+  const response = await axios.get("https://swapi.dev/api/films/");
+  films.value = JSON.stringify(response.data, null, 2);
+  loading.value = false;
+});
+</script>
+
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+</style>

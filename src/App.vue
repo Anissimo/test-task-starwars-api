@@ -6,15 +6,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import ThemeSwitcher from './components/ThemeSwitcher.vue';
 export default defineComponent({
   name: "App",
-
 });
 </script>
 
 <style>
 #app {
+  box-sizing: border-box;
   text-align: center;
   margin-top: 20px;
 }
