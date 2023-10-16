@@ -1,31 +1,29 @@
-<template>
-  <div class="container">
-    <router-link to="/">
-      <a-button>Назад</a-button>
-    </router-link>
-    <h2>Films.vue</h2>
-    <div v-if="loading">Загрузка...</div>
-    <div v-else>{{ films }}</div>
-  </div>
-</template>
 
-<script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
+1.	Использовать АПИ «Звёздные войны»: https://swapi.dev/documentation
+2.	Создать клиент (так как серверная часть уже реализована указанным АПИ) из следующих страниц: 
+- на домашней (первой) странице должна быть таблица, содержащая ответы АПИ - http https://swapi.dev/api/
+-	При нажатии на кнопку «Открыть страницу» должна открываться новая страница (с новым URL) с информацией из соответствующего АПИ (например, результаты запроса https://swapi.dev/api/films/) (можно показывать не все поля)
+-	На странице с ответами выбранного АПИ сделать кнопку «Назад», которая всегда будет возвращать к домашней странице
+-	Плюсом будет реализация пагинации в таблицах
+-	На странице с ответом АПИ «planets» сделать простейший фильтр данных таблицы через выпадающий список (можно прямо над таблицей, оформление на вкус исполнителя) 
+-	На старнице с ответом АПи «People» для поля gender выводить не название, а картинку (не обязательно покрывать все существующие варианты, достаточно, для двух общепринятых полов реализовать отображение картинкой). Поля created && edited отформатировать с использованием библиотеки moment.js
+3.	Плюсом будет использование библиотеки для UI – AntD
+4.	Разделить функциональность между родительским и дочерними компонентами, организовать передачу props
+5.	Данный проект реализовать на Vue3 с использованием Composition API и желательно на Typescript. Будет плюсом если проект будет собираться с помощью webpack.
+6.	Приветствуется максимально творческий подход в вёрстке (ограничений по фону, шрифту нет)
+7.	Создать папку в git. Прислать для проверки ссылку на удалённый репозитарий в гите.
 
-const films = ref<Object | null>(null);
-const loading = ref(true);
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-onMounted(async () => {
-  const response = await axios.get("https://swapi.dev/api/films/");
-  films.value = JSON.stringify(response.data, null, 2);
-  loading.value = false;
-});
-</script>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
+{
+"films" : "https://swapi.dev/api/films/",
+"people" : "https://swapi.dev/api/people/",
+"planets" : "https://swapi.dev/api/planets/",
+"species" : "https://swapi.dev/api/species/",
+"starships" : "https://swapi.dev/api/starships/",
+"vehicles" : "https://swapi.dev/api/vehicles/",
 }
-</style>
+
+
+
