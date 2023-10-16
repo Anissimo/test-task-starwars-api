@@ -5,9 +5,9 @@
       <a-button>Назад</a-button>
     </router-link>
 
-    <!-- Здесь будет компонент поиска -->
+    <!-- Здесь компонент поиска в дальнейшем будет -->
 
-    <!-- Здесь будут фильтры и сортировка -->
+    <!-- Здесь мейби фильтры и сортировка -->
 
     <a-row :gutter="16">
       <a-col :span="24" v-for="film in films" :key="film.title">
@@ -47,5 +47,7 @@ onMounted(async () => {
 .container {
   display: flex;
   flex-direction: column;
+  background-color: #f0f0f0; // светло-серый фон
+  color: #808080; // темно-серый текст
 }
 </style>

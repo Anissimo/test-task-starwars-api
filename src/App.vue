@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ThemeSwitcher from './components/ThemeSwitcher.vue';
 export default defineComponent({
   name: "App",
 });

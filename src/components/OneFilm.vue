@@ -13,7 +13,7 @@
       <p>Виды: {{ film.species.length }}</p>
     </div>
     <a-button class="button-seemore" @click="showMore = !showMore">{{
-      showMore ? "Смотреть меньше" : "Свернуть"
+      showMore ? "Смотреть меньше" : "Смотреть больше..."
     }}</a-button>
   </a-card>
 </template>
