@@ -1,17 +1,19 @@
 <template>
   <div class="container">
-    <h2>Species.vue</h2>
-    <router-link to="/">
-      <a-button>Назад</a-button>
-    </router-link>
+    <ReturnHome title="Species" />
+    Эта страница пока не реализована
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import ReturnHome from "../components/ReturnHome.vue";
+</script>
 
 <style lang="scss" scoped>
 .container {
   display: flex;
   flex-direction: column;
+  color: rgba(255, 255, 255, 0.85);
 }
+
 </style>

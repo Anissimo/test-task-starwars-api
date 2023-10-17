@@ -1,13 +1,12 @@
 <template>
   <div class="container">
-    <h2>Planets.vue</h2>
-    <router-link to="/">
-      <a-button>Назад</a-button>
-    </router-link>
+    <ReturnHome title="Planets" />
     <a-table
       :dataSource="planets"
       :columns="columns"
+      :pagination="false"
       rowKey="name"
+      class="a-table"
       @change="handleTableChange"
     />
   </div>
@@ -16,42 +15,53 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { IPlanet, PlanetResponse } from "@/types/interfaces";
+import { IPlanet, PlanetResponse, Sorter } from "@/types/interfaces";
 import _ from "lodash";
-
+import ReturnHome from "../components/ReturnHome.vue";
 const planets = ref<IPlanet[]>([]);
 const columns = [
-  { title: "Название", dataIndex: "name", key: "name", sorter: true },
-  { title: "Климат", dataIndex: "climate", key: "climate", sorter: true },
-  { title: "Диаметр", dataIndex: "diameter", key: "diameter", sorter: true },
-  { title: "Создано", dataIndex: "created", key: "created" },
-  { title: "Изменено", dataIndex: "edited", key: "edited" },
+  { title: "Name", dataIndex: "name", key: "name", sorter: true },
+  { title: "Climate", dataIndex: "climate", key: "climate", sorter: true },
+  {
+    title: "Created",
+    dataIndex: "created",
+    key: "created",
+    sorter: true,
+    render: (text: string) => new Date(text).toLocaleString(),
+  },
+  {
+    title: "Edited",
+    dataIndex: "edited",
+    key: "edited",
+    sorter: true,
+    render: (text: string) => new Date(text).toLocaleString(),
+  },
   { title: "Гравитация", dataIndex: "gravity", key: "gravity" },
   {
-    title: "Период орбиты",
+    title: "Orbital_period",
     dataIndex: "orbital_period",
     key: "orbital_period",
     sorter: true,
   },
   {
-    title: "Население",
+    title: "Population",
     dataIndex: "population",
     key: "population",
     sorter: true,
   },
   {
-    title: "Период вращения",
+    title: "Rotation period ",
     dataIndex: "rotation_period",
     key: "rotation_period",
     sorter: true,
   },
   {
-    title: "Поверхностная вода",
+    title: "Surface water",
     dataIndex: "surface_water",
     key: "surface_water",
     sorter: true,
   },
-  { title: "Местность", dataIndex: "terrain", key: "terrain" },
+  { title: "Terrain", dataIndex: "terrain", key: "terrain" },
 ] as const;
 
 onMounted(async () => {
@@ -69,22 +79,32 @@ onMounted(async () => {
 const handleTableChange = (
   pagination: unknown,
   filters: unknown,
-  sorter: { field: keyof IPlanet; order: string }
+  sorter: Sorter
 ) => {
-  if (sorter.order === "ascend") {
-    planets.value = _.sortBy(planets.value, [
-      (planet) => {
-        const value = planet[sorter.field];
-        return isNaN(Number(value)) ? value : Number(value);
-      },
-    ]);
-  } else if (sorter.order === "descend") {
-    planets.value = _.sortBy(planets.value, [
-      (planet) => {
-        const value = planet[sorter.field];
-        return isNaN(Number(value)) ? value : Number(value);
-      },
-    ]).reverse();
+  if (typeof sorter.field === "string") {
+    if (sorter.order === "ascend") {
+      planets.value = _.sortBy(planets.value, [
+        (planet) => {
+          const value = planet[sorter.field];
+          return typeof value === "string" || typeof value === "number"
+            ? isNaN(Number(value))
+              ? new Date(value).getTime()
+              : Number(value)
+            : 0;
+        },
+      ]);
+    } else if (sorter.order === "descend") {
+      planets.value = _.sortBy(planets.value, [
+        (planet) => {
+          const value = planet[sorter.field];
+          return typeof value === "string" || typeof value === "number"
+            ? isNaN(Number(value))
+              ? new Date(value).getTime()
+              : Number(value)
+            : 0;
+        },
+      ]).reverse();
+    }
   }
 };
 </script>
@@ -92,6 +112,15 @@ const handleTableChange = (
 <style lang="scss" scoped>
 .container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+}
+
+.a-table {
+  // width: min-content;
+  height: min-content;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 </style>

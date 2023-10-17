@@ -5,11 +5,14 @@ export interface DataType {
 }
 export interface PlanetResponse {
   results: IPlanet[];
-  // Другие поля, если есть
 }
 
+export interface Sorter {
+  field: keyof IPlanet;
+  order: string;
+}
 export interface IFilm {
-  characters: string[] | IPeople[];
+  characters: string[];
   created: Date;
   director: string;
   edited: Date;
@@ -115,12 +118,10 @@ export interface IVehicle {
 }
 
 export enum ResourcesType {
-  Films = 'films',
-    People = 'people',
-    Planets = 'planets',
-    Species = 'species',
-    Starships = 'starships',
-    Vehicles = 'vehicles',
+  People = "people",
+  Planets = "planets",
+  Films = "films",
+  Species = "species",
+  Starships = "starships",
+  Vehicles = "vehicles",
 }
-
-// export default DataType

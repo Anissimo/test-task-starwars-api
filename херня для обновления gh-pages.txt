@@ -1,0 +1,35 @@
+"создаём реп"
+git init
+git add .
+git commit -m "frist commit"
+git remote add origin https://github.com/Anissimo/test-task-alef.git
+git branch -M main
+git push -u origin main
+
+
+
+"создаём новую саб-ветку"
+git checkout -b gh-pages
+git status
+
+
+
+"это при перезаливе использовать"
+git add dist -f
+git commit -m 'добавляем билд'
+git subtree push --prefix dist origin gh-pages
+
+
+@@@
+1. On remote repository delete the "gh-pages" branch. 
+
+2. In you local repository run this command: npm run build (1:56)
+
+3. git add dist -f (2:05)
+
+4. git commit -m [your commit message here] (2:17)
+
+5. git subtree push --prefix dist origin gh-pages (2:20)
+
+if anyone has a quicker process please feel free to update this! but I found this the fastest way to push up to gh-pages.
+@@@

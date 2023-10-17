@@ -1,43 +1,40 @@
 <template>
-  <a-card class="a-card" :title="film.title">
-    <p>Режиссер: {{ film.director }}</p>
-    <p>Продюсер: {{ film.producer }}</p>
-    <p>Дата выпуска: {{ film.release_date }}</p>
-    <p>Эпизод: {{ film.episode_id }}</p>
-    <div v-if="showMore">
-      <p>Открывающий текст: {{ film.opening_crawl }}</p>
-      <p>Персонажи: {{ film.characters.length }}</p>
-      <p>Планеты: {{ film.planets.length }}</p>
-      <p>Звездолеты: {{ film.starships.length }}</p>
-      <p>Транспортные средства: {{ film.vehicles.length }}</p>
-      <p>Виды: {{ film.species.length }}</p>
-    </div>
-    <a-button class="button-seemore" @click="showMore = !showMore">{{
-      showMore ? "Смотреть меньше" : "Смотреть больше..."
-    }}</a-button>
+  <a-card class="a-card" :title="film.title" :bordered="true">
+    <a-row class="info-row">
+      <a-col :span="8" class="info-col" v-for="(value, key) in film" :key="key">
+        <strong>{{ key }}:</strong>
+        {{ Array.isArray(value) ? value.join(", ") : value }}
+      </a-col>
+    </a-row>
   </a-card>
 </template>
 
-<script lang="ts" setup>
-import { ref, defineProps } from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
+import { IFilm } from "@/types/interfaces";
 
-const props = defineProps({
-  film: Object,
+export default defineComponent({
+  props: {
+    film: {
+      type: Object as () => IFilm,
+      required: true,
+    },
+  },
 });
-
-const showMore = ref(false);
 </script>
 
 <style scoped>
-p {
-  text-align: left;
-}
 .a-card {
-  /* display: flex;
-  justify-content: flex-start; */
+  width: 100%; /* Чтобы карточка могла сжиматься по горизонтали */
+  margin-bottom: 20px; /* Добавляем немного отступа снизу для каждой карточки */
 }
 
-.button-seemore {
-    /* margin-left: 0; */
+.info-row {
+  flex-direction: column;
+}
+
+.info-col {
+  text-align: left;
+  padding: 5px;
 }
 </style>
